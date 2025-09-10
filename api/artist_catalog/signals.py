@@ -19,3 +19,4 @@ def create_superuser(sender, **kwargs):
         User.objects.create_superuser(
             username=username, email=email, password=password
         )
+

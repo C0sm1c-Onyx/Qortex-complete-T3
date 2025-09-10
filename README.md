@@ -17,6 +17,11 @@ docker compose up -d --build
 ### логин: root
 ### пароль: root
 
+---
+## Swagger
+url - http://127.0.0.1:8000/swagger
+---
+
 ## API документация
 
 Ниже описаны доступные REST‑эндпоинты приложения `artist_catalog`. Все URL начинаются с префикса `/api/v1/`.

@@ -4,7 +4,14 @@ from artist_catalog.models import Artist, Album, AlbumTrack, Music
 
 
 class ArtistSerializer(serializers.ModelSerializer):
-    id = serializers.IntegerField(read_only=True)
+    id = serializers.IntegerField(
+        read_only=True,
+        help_text="Уникальный идентификатор исполнителя"
+    )
+    artist_name = serializers.CharField(
+        max_length=100,
+        help_text="Название исполнителя или музыкальной группы"
+    )
 
     class Meta:
         model = Artist
@@ -12,7 +19,14 @@ class ArtistSerializer(serializers.ModelSerializer):
 
 
 class MusicSerializer(serializers.ModelSerializer):
-    id = serializers.IntegerField(read_only=True)
+    id = serializers.IntegerField(
+        read_only=True,
+        help_text="Уникальный идентификатор музыкального произведения"
+    )
+    title = serializers.CharField(
+        max_length=100,
+        help_text="Название музыкального произведения"
+    )
 
     class Meta:
         model = Music
@@ -20,12 +34,22 @@ class MusicSerializer(serializers.ModelSerializer):
 
 
 class AlbumWriteTrackSerializer(serializers.Serializer):
-    title = serializers.CharField(max_length=100)
-    number = serializers.IntegerField(min_value=1)
+    title = serializers.CharField(
+        max_length=100,
+        help_text="Название трека"
+    )
+    number = serializers.IntegerField(
+        min_value=1,
+        help_text="Порядковый номер трека в альбоме (начиная с 1)"
+    )
 
 
 class AlbumWriteSerializer(serializers.ModelSerializer):
-    tracks = AlbumWriteTrackSerializer(many=True, required=False)
+    tracks = AlbumWriteTrackSerializer(
+        many=True, 
+        required=False,
+        help_text="Список треков альбома"
+    )
 
     class Meta:
         model = Album
@@ -68,18 +92,35 @@ class AlbumWriteSerializer(serializers.ModelSerializer):
 
 
 class AlbumReadSerializer(serializers.ModelSerializer):
-    artist = serializers.CharField(source="artist.artist_name", read_only=True)
+    artist = serializers.CharField(
+        source="artist.artist_name", 
+        read_only=True,
+        help_text="Название исполнителя"
+    )
+    release_date = serializers.DateField(
+        help_text="Дата выпуска альбома"
+    )
+
     class Meta:
         model = Album
         fields = ("artist", "release_date")
 
 
 class TrackInAlbumSerializer(serializers.Serializer):
-    title = serializers.CharField()
-    number = serializers.IntegerField()
+    title = serializers.CharField(
+        help_text="Название трека"
+    )
+    number = serializers.IntegerField(
+        help_text="Порядковый номер трека в альбоме"
+    )
 
 
 class AlbumTracksGroupedSerializer(serializers.Serializer):
-    album = AlbumReadSerializer()
-    tracks = TrackInAlbumSerializer(many=True)
+    album = AlbumReadSerializer(
+        help_text="Информация об альбоме"
+    )
+    tracks = TrackInAlbumSerializer(
+        many=True,
+        help_text="Список треков в альбоме"
+    )
 
