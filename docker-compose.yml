@@ -9,6 +9,10 @@ services:
       - 8000:8000
     working_dir: /usr/src/app/api
     environment:
+      POSTGRES_HOST: postgres_db
+      POSTGRES_DB: ${POSTGRES_DB_NAME}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
       DJANGO_SETTINGS_MODULE: api.settings
     volumes:
       - .:/usr/src/app

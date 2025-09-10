@@ -2,15 +2,17 @@
 
 1. Склонируйте репозиторий
 ```bash
-git clone https://github.com/C0sm1c-Onyx/Qortex-complete-.git
+git clone https://github.com/C0sm1c-Onyx/Qortex-complete-T3.git
 ```
-2. Запустите проект
+2. Скопируйте файл .env.example и переименуйте на .env
+3. Подставьте свои значения в .env (можно не делать)
+4. Запустите проект
 ```bash
 docker compose up -d --build
 ```
 
 ### ! Настроена админ панель (для удобного создания сущностей):
-### url http://127.0.0.1/admin
+### url http://127.0.0.1:8000/admin
 
 ### логин: root
 ### пароль: root
@@ -88,7 +90,8 @@ curl -X POST http://localhost:8000/api/v1/albums/ \
 
 ---
 
-### Tracks in Albums — только чтение (список/один трек)
+### Tracks in Albums — только чтение (список)
 - Список сгруппированных треков по альбомам: `GET /api/v1/tracks-in-albums/`
 
+---
 
